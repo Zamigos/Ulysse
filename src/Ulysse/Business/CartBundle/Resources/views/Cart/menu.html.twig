@@ -1,0 +1,30 @@
+<div id="cd-shadow-layer"></div>
+
+<div id="cd-cart">
+    <h2>Ton Panier</h2>
+    {% if entities is empty %}
+        <ul class="cd-cart-items">
+            <li class="text-center">Aucun Produit dans ton panier</li>
+        </ul>
+    {% else %}
+        <ul class="cd-cart-items">
+            {% for entity in entities %}
+                <li>
+                    <span class="cd-qty">{{ quantity[entity.id] }}x</span> {{ entity.product.name }}
+                    <div class="cd-price">{{ entity.price }}€</div>
+                    <a href="{{ path('ulysse_businnes_delete_article_cart', { 'id_article': entity.id }) }}"
+                       class="cd-item-remove cd-img-replace"></a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="cd-cart-total">
+            <p>Total <span>{{ total_price }}€</span></p>
+        </div>
+
+        <a href="{{ path('ulysse_business_cart_homepage') }}" class="checkout-btn">Valider</a>
+
+    {% endif %}
+
+    <p class="cd-go-to-cart"><a href="{{ path('ulysse_business_cart_homepage') }}">Aller sur la page Panier</a></p>
+</div>

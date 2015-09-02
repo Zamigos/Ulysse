@@ -1,0 +1,32 @@
+{% extends 'UlysseBusinessConfigurationBundle:Back:index.html.twig' %}
+
+{% block content -%}
+    <center>
+        <img src="{{ asset(entity.webPath) }}" alt="{{ entity.alt }}">
+    </center>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Extension</th>
+                                <td>{{ entity.extension }}</td>
+                            </tr>
+                            <tr>
+                                <th>Alt</th>
+                                <td>{{ entity.alt }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ path('slider') }}" class="btn btn-primary">
+            Retourner à la liste
+        </a>
+        <a href="{{ path('slider_delete', { 'id' : entity.id }) }}" class="btn btn-primary">Supprimer</a>
+    </section>
+{% endblock content %}

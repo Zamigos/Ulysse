@@ -1,0 +1,51 @@
+{% if products is not empty %}
+    {% for product in products %}
+        {% if product.product is not empty %}
+            <div class="col-sm-6 col-md-4 product">
+                <div class="thumbnail product_type">
+                    <img src="{{ product.product.image.webPath | apply_filter('thumb_product_template') }}"
+                         alt="{{ product.product.image.alt }}">
+
+                    <div class="caption">
+                        <h3>{{ product.product.name | truncate(20)}}</h3>
+                        <p class="category"><i class="fa fa-circle"></i> {{ product.product.category.wording }}</p>
+
+                        <p class="short_description">{{ product.product.description | truncate(120) }}</p>
+
+                        <div class="row info">
+                            <div class="col-md-6">
+                                <p>
+                                    <span>articles disponible</span><br>
+                                    <strong>{{ product.nbProduct }}</strong>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span>à partir de</span><br>
+                                    {% if product.nbProduct > 0 %}
+                                        <strong>{{ product.minPrice }}€</strong>
+                                    {% else %}
+                                        <strong>-</strong>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="text-center seeMore">
+                            {% if product.nbProduct > 0 %}
+                                <a href="{{ path('product_show', { 'id' : product.product.id }) }}" class="btn btn-primary" role="button">Voir les produits disponibles</a>
+                            {% else %}
+                                <a href="{{ path('product_show', { 'id' : product.product.id }) }}" class="btn btn-default" role="button">Voir la fiche produit</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center"><strong>Aucun produit trouvé...</strong></div>
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+    <div class="alert alert-warning text-center"><strong>Aucun produit trouvé...</strong></div>
+{% endif %}

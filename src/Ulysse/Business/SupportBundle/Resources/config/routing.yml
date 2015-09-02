@@ -1,0 +1,24 @@
+ulysse_business_support_response:
+    resource: "@UlysseBusinessSupportBundle/Resources/config/routing/response.yml"
+    prefix:   /response
+
+ulysse_support_front_index:
+    path: /support
+    defaults: { _controller: "UlysseBusinessSupportBundle:SupportFront:index" }
+
+ulysse_support_add_request_support:
+    path: /support/addRequest
+    defaults: { _controller: "UlysseBusinessSupportBundle:SupportFront:newSupportRequest" }
+
+ulysse_support_create_request_support:
+    path: /support/createRequest
+    defaults: { _controller: "UlysseBusinessSupportBundle:SupportFront:createSupportRequest" }
+    methods:  POST
+
+ulysse_support_show_request:
+    path: /support/{id}
+    defaults: { _controller: "UlysseBusinessSupportBundle:SupportFront:showTicket" }
+    requirements:
+        id: \d+
+
+

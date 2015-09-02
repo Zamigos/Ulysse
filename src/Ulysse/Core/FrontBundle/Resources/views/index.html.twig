@@ -1,0 +1,26 @@
+{% extends ':front:base.html.twig' %}
+
+
+{% block slider %}
+    {{ render(controller('UlysseBusinessConfigurationBundle:Slider:homeSlider')) }}
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Notre sélections</h2>
+            </div>
+            <div class="row">
+                {{ render(controller('UlysseBusinessProductBundle:Product:getProductInSelectionHome', { 'limit' : 6 })) }}
+            </div>
+            <div class="page-header">
+                <h2>Top Ventes</h2>
+            </div>
+            <div class="row">
+                {{ render(controller('UlysseBusinessProductBundle:Product:getTopProductsHome', { 'limit' : 6 } )) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

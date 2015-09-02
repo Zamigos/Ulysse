@@ -1,0 +1,19 @@
+deployment:
+    path:     /
+    defaults: { _controller: UlysseDeploymentDeploymentBundle:Default:index }
+
+generate_deployment:
+    path:     /generate
+    defaults: { _controller: UlysseDeploymentDeploymentBundle:Deployment:generateDeployment }
+
+check_database:
+    path:     /database
+    defaults: { _controller: UlysseDeploymentDeploymentBundle:Deployment:checkDataBase }
+
+check_administrator:
+    path:     /administrator
+    defaults: { _controller: UlysseDeploymentDeploymentBundle:Deployment:checkAdministrator }
+
+check_shop:
+    path:     /shop
+    defaults: { _controller: UlysseDeploymentDeploymentBundle:Deployment:checkShop }

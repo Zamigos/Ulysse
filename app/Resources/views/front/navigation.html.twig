@@ -1,0 +1,128 @@
+<nav class="cd-nav">
+    <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+        <li>
+            <a href="{{ path('sale') }}">Tous les produits</a>
+        </li>
+        <li class="has-children">
+            <a href="#">Produits</a>
+
+            <ul class="cd-secondary-nav is-hidden">
+                <li class="go-back"><a href="#0">Menu</a></li>
+                <li class="see-all"><a href="{{ path('product') }}">Voir tout les produits</a></li>
+                <li class="has-children">
+                    <a href="{{ path('product') }}">Produits par Catégorie</a>
+
+                    <ul class="is-hidden">
+                        <li class="go-back"><a href="#0">Catégorie</a></li>
+                        <li class="see-all"><a href="#">Voir toutes les catégories</a></li>
+                        {{ render(controller('UlysseBusinessProductBundle:Category:listCategorieForMenu')) }}
+                    </ul>
+                </li>
+
+                <li class="has-children">
+                    <a href="{{ path('new_products_added') }}">Nouveautés</a>
+
+                    <ul class="is-hidden">
+                        <li class="go-back"><a href="#0">Nouveautés</a></li>
+                        <li class="see-all"><a href="{{ path('new_products_added') }}">Voir les nouveautés</a></li>
+                        {{ render(controller('UlysseBusinessProductBundle:Product:getNewAddProduct')) }}
+                    </ul>
+                </li>
+
+                <li class="has-children">
+                    <a href="{{ path('top_product_sale') }}">Top Ventes</a>
+
+                    <ul class="is-hidden">
+                        <li class="go-back"><a href="#0">Top Ventes</a></li>
+                        <li class="see-all"><a href="{{ path('top_product_sale') }}">Voir les Top Ventes</a></li>
+                        {{ render(controller('UlysseBusinessProductBundle:Product:getTopProducts')) }}
+                    </ul>
+                </li>
+
+                <li class="has-children">
+                    <a href="{{ path('product_in_selection') }}">Notre Sélection</a>
+
+                    <ul class="is-hidden">
+                        <li class="go-back"><a href="#0">Notre Sélection</a></li>
+                        <li class="see-all"><a href="{{ path('product_in_selection') }}">Voir les sélections</a></li>
+                        {{ render(controller('UlysseBusinessProductBundle:Product:getProductInSelection')) }}
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        {# Si la personne est connectée #}
+        {% if app.user %}
+        <li class="has-children">
+            <a href="#"><img class="gravatar" src="{{ gravatar(app.user.email) }}" /><strong>{{ app.user.username }}</strong></a></a>
+            <ul class="cd-nav-icons is-hidden">
+                <li class="go-back"><a href="#0">Menu</a></li>
+                <li class="see-all"><a href="{{ path('sale_show_my_article') }}">Voir mes Articles</a></li>
+                <li>
+                    <a class="cd-nav-item item-1" href="{{ path('sale_add_product') }}">
+                        <p class="h3">Ajouter un article</p>
+                        <p>Ne soit pas timide !</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-2" href="{{ path('sale_show_my_article') }}">
+                        <p class="h3">Mes Articles</p>
+                        <p>Tous tes articles</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-3" href="{{ path('fos_user_profile_show') }}">
+                        <p class="h3">Mon Profil</p>
+                        <p>Les paramètres de ton profil</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-4" href="{{ path('ulysse_businnes_list_command_past') }}">
+                        <p class="h3">Mes Achats</p>
+                        <p>Les achats en cours</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-5" href="{{ path('ulysse_business_list_articles_sale') }}">
+                        <p class="h3">Mes produits vendus</p>
+                        <p>Les ventes de tes produits en cours</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-7" href="{{ path('ulysse_support_front_index') }}">
+                        <p class="h3">Support</p>
+                        <p>Nous serons toujours là pour toi !</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="cd-nav-item item-8" href="{{ path('fos_user_security_logout') }}">
+                        <p class="h3">Se déconnecter</p>
+                        <p>Merci de ta visite et à très vite !</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li id="cd-cart-trigger">
+            <a class="cd-img-replace" href="#0"></a>
+            {{ render(controller('UlysseBusinessCartBundle:Default:countArticleCart')) }}
+        </li>
+
+        {# Si elle n'est pas connectée #}
+        {% else %}
+        <li><a href="{{ path('fos_user_security_login') }}">Se Connecter / S'inscrire</a></li>
+        {% endif %}
+    </ul> <!-- primary-nav -->
+</nav> <!-- cd-nav -->
+
+<div id="cd-search" class="cd-search">
+    <form action="{{ path('search_product') }}" method="GET">
+        <input type="search" placeholder="Rechercher..." name="q">
+    </form>
+</div>

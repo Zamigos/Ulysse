@@ -1,0 +1,16 @@
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="page-header">
+        <h1>S'inscrire</h1>
+    </div>
+
+    <div class="well bs-component">
+        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+            <fieldset>
+            {{ form_widget(form) }}
+            <div>
+                <input type="submit" class="btn btn-primary pull-right" value="S'enregistrer" />
+            </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

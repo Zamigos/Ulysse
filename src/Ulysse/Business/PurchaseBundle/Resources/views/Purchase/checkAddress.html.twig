@@ -1,0 +1,31 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+    <div class="row col-md-6 col-md-offset-3">
+        <div class="row page_cart">
+            <div class="page-header">
+                <h1>Adresse de livraison</h1>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Article</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td scope="row">{{ loop.index }}</td>
+                        <td>
+                            <a href="{{ path('sale_show', { 'id': entity.id }) }}">{{ entity.product.name | truncate(40) }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <hr/>
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

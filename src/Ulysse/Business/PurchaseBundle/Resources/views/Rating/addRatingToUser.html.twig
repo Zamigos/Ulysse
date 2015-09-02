@@ -1,0 +1,17 @@
+{% extends ':front:base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="col-md-12 rate_page">
+
+        <h2>Évalue l'article <strong>{{ salepurchase.sale.product.name }}</strong> @{{ salepurchase.sale.user.username }}</h2>
+
+        <div class="col-md-4 col-md-offset-4 rate">
+        {{ form(form) }}
+        </div>
+    </div>
+
+
+
+{% endblock %}

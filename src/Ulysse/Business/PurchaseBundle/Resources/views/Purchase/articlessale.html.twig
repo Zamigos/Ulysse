@@ -1,0 +1,60 @@
+{% extends ':front:base.html.twig' %}
+
+
+{% block body %}
+    <div class="row col-md-10 col-lg-offset-1 page_articles_sale">
+    <div class="page-header">
+        <h1>Articles Vendus</h1>
+    </div>
+
+    {% if articlesale is not empty %}
+
+        {% for salepurchase in articlesale %}
+            <div class="row ">
+
+                <div class="col-md-6">
+                    <h3><a href="{{ path('sale_show', { 'id' : salepurchase.sale.id }) }}">{{ salepurchase.sale.product.name }}</a> <small>#{{ salepurchase.id }}</small></h3>
+                    <span class="label label-success">{{ salepurchase.status.wording }}</span>
+
+                    <div class="info">
+                        <ul>
+                            <li><small>Date :</small> {{ salepurchase.purchase.date | date('d/m/Y') }}</li>
+                            <li><small>Quantité vendu :</small> {{ salepurchase.quantity }}</li>
+                            <li><small>Total :</small> {{ salepurchase.amount }}€</li>
+                        </ul>
+                    </div>
+
+
+
+
+                </div>
+                <div class="col-md-4 col-md-offset-2 well text-center">
+
+                    <h6>Adresse de livraison où tu dois envoyer le colis :</h6>
+                    <ul>
+                        <li>{{ salepurchase.purchase.firstname }} , {{ salepurchase.purchase.lastname }}</li>
+                        <li>{{ salepurchase.purchase.address }}</li>
+                        <li>{{ salepurchase.purchase.cp }} {{ salepurchase.purchase.city }}</li>
+                        <li>{{ salepurchase.purchase.country }}</li>
+                    </ul>
+
+                    {% if salepurchase.status.id == 2 %}
+                        <div class="text-center">
+                        <a class="btn btn-success" href="{{ path('ulysse_businnes_i_send_package', { id : salepurchase.id }) }}">Je confirme avoir déposé le colis</a>
+                        </div>
+                            {% endif %}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+
+
+
+
+
+    {% else %}
+        <p>Tu n'as rien vendu</p>
+    {% endif %}
+
+    </div>
+{% endblock %}

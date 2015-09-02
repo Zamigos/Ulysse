@@ -1,0 +1,30 @@
+comment:
+    path:     /
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:index" }
+
+comment_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:show" }
+
+comment_new:
+    path:     /new
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:new" }
+
+comment_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:create" }
+    methods:  POST
+
+comment_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:edit" }
+
+comment_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:update" }
+    methods:  [POST, PUT]
+
+comment_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessProductBundle:Comment:delete" }
+    methods:  [POST, DELETE]

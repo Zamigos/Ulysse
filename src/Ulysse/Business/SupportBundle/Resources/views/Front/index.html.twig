@@ -1,0 +1,44 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+<div class="col-md-12 support">
+    <div class="row">
+        <div class="page-header">
+            <h1>Support</h1>
+        </div>
+        <div class="row contact_support">
+            <a href="{{ path('ulysse_support_add_request_support') }}" class="btn btn-success pull-right ">Contacter le support</a>
+        </div>
+
+            {% for ticket in tickets %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        {% if ticket.fenced == false %}
+                            <span class="label label-success">Ouvert</span>
+                        {% else %}
+                            <span class="label label-danger">Fermé</span>
+                        {% endif %}
+                        {{ ticket.title }}
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ ticket.content | truncate(250) }}</p>
+                    </div>
+
+                </div>
+                <div class="see_ticket">
+                    <a href="{{ path('ulysse_support_show_request', { 'id' : ticket.id } ) }}"
+                       class="btn btn-default see_ticket">Voir le ticket</a>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+    {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

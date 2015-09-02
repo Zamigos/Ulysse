@@ -1,0 +1,5 @@
+{% if redirect %}
+    <script>
+        $(location).attr('href','{{path('deployment')}}');
+    </script>
+{% endif %}

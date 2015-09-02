@@ -1,0 +1,38 @@
+{% extends parent %}
+
+{% block content %}
+    {{ render(controller('UlysseBusinessProductBundle:ProductBack:header')) }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'UlysseBusinessProductBundle:Back:side.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="box">
+                <center>
+                    <h1>
+                        {{ entity.name }}
+                    </h1>
+                    {% if entity.image %}
+                        <img width="300px" src="{{ asset(entity.image.webPath) }}" alt="{{ entity.image.alt }}" />
+                    {% endif %}
+                    <p class="well">{{ entity.description }}</p>
+                    {% if is_granted('ROLE_ADMIN_SHEETS') %}
+                        {% if not entity.state or entity.state == 2 %}
+                            <button class="btn btn-success fiche_validate" type="button" id="{{entity.id}}">Valider</button>
+                        {% else %}
+                            {% if entity.selected %}
+                                <button class="btn btn-default fiche_unselected" type="button" id="{{entity.id}}">Retirer à la sélection</button>
+                            {% else %}
+                                <button class="btn btn-default fiche_selected" type="button" id="{{entity.id}}">Ajouter à la sélection</button>
+                            {% endif %}
+                        {% endif %}
+                        <button class="btn btn-primary fiche_edit" type="button" id="{{entity.id}}">Edit</button>
+                        {% if not entity.state or entity.state == 1 %}
+                            <button class="btn btn-danger fiche_refuse" type="button" id="{{entity.id}}">Refuser</button>
+                        {% endif %}
+                    {% endif %}
+                </center>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

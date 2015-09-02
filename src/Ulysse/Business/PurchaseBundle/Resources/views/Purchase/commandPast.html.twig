@@ -1,0 +1,97 @@
+{% extends ':front:base.html.twig' %}
+
+
+{% block body %}
+    <div class="col-md-12 command_past">
+        <div class="page-header">
+            <h1>Mes Commandes</h1>
+        </div>
+
+        {% if commands is not empty %}
+
+            {% for command in commands %}
+                <h3>Commande du {{ command.date | date('d-m-Y') }}</a>
+                    <small>Réf {{ command.id }}</small>
+                </h3>
+                <div class="row">
+                    <div class="col-md-9">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Status</th>
+                                    <th>Article</th>
+                                    <th>Propriétaire</th>
+                                    <th>Quantité</th>
+                                    <th>Prix</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for salepurchase in command.salepurchase %}
+
+                                    <tr>
+                                        <td scope="row">{{ loop.index }}</td>
+                                        <td>
+                                            <span class="label label-success">{{ salepurchase.status.wording }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('sale_show', { 'id': salepurchase.sale.id }) }}">{{ salepurchase.sale.product.name | truncate(30) }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('ulysse_user_show', { 'id' : salepurchase.sale.user.id }) }}">{{ salepurchase.sale.user.username }}</a>
+                                        </td>
+                                        <td>{{ salepurchase.quantity }}</td>
+                                        <td>{{ salepurchase.amount }}€</td>
+                                        <td>
+
+                                            {% if salepurchase.status.id == 3 %}
+                                                <a href="{{ path('ulysse_business_i_received_package', { id : salepurchase.id }) }}"
+                                                   class="btn btn-sm btn-success center-block">J'ai reçu le colis</a>
+                                            {% elseif salepurchase.status.id == 4 and salepurchase.rating is empty %}
+                                                <a href="{{ path('add_rating_to_user', { id : salepurchase.id }) }}"
+                                                   class="btn btn-sm btn-primary center-block">Noter l'utilisateur</a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="priceTotal"><small>Total :</small> {{ command.amounttotal }}€</p>
+                    </div>
+
+                    <div class="col-md-3 livr_div">
+                        <div class="text-center">
+                            <h6>Adresse de livraison</h6>
+                            <ul>
+                                <li>{{ command.firstname }}, {{ command.lastname }}</li>
+                                <li>{{ command.address }}</li>
+                                <li>{{ command.cp }} {{ command.city }}</li>
+                                <li>{{ command.country }}</li>
+                            </ul>
+                            <a href="{{ path('ulysse_business_resume_order', { 'id' : command.id }) }}" class="btn btn-default">Voir la commande</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr>
+            {% endfor %}
+
+
+        {% else %}
+            <p class="well">
+                Tu n'as rien acheté pour le moment
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

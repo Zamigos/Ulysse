@@ -1,0 +1,18 @@
+<div class="col-md-2 second-navigation">
+    <div class="list-group">
+        <a href="{{ path('product_in_selection') }}"
+           class="list-group-item {% if route == 'product_in_selection' %}active{% endif %}"><i class="fa fa-star"></i>
+            Sélection</a>
+        <a href="{{ path('top_product_sale') }}"
+           class="list-group-item {% if route == 'top_product_sale' %}active{% endif %}"><i
+                    class="fa fa-thumbs-o-up"></i> Top Ventes</a>
+        <a href="{{ path('new_products_added') }}"
+           class="list-group-item {% if route == 'new_products_added' %}active{% endif %}"><i class="fa fa-plus"></i>
+            Nouveaux produits</a>
+        <li class="list-group-item subtitle">Produit par catégorie</li>
+        {% for category in categories %}
+            <a href="{{ path('get_all_products_by_category', { 'category_name' : category.slug }) }}"
+               class="list-group-item {% if path('get_all_products_by_category', { 'category_name' : category.slug }) == app.request.server.get('PHP_SELF') %}active{% endif %}">- {{ category.wording }}</a>
+        {% endfor %}
+    </div>
+</div>

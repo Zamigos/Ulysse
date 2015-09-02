@@ -1,0 +1,67 @@
+/* Feuille de style pour régler les problèmes d'intégrations liés au différentes librairies utilisé*/
+
+main.cd-main-content {
+    background: #F2F2F2;
+}
+
+/* Avatar/Gravatar */
+.gravatar {
+    border-radius: 10px;
+    margin-right:10px
+}
+
+/* Modif de la couleur du template CART */
+#cd-cart-trigger a {
+    background-color: #69aa6f;
+}
+
+/* Correction CSS dû à bootstrap sur les templates */
+header ul {
+    margin-bottom: 0px;
+}
+
+/* Logo */
+header .cd-logo img {
+    height:100%;
+}
+
+/* Header */
+#cd-cart-trigger {
+    height: 80px;
+}
+
+/* Placement du logo du header*/
+.cd-logo {
+    top: 4px;
+    left: 5%;
+}
+@media only screen and (max-width: 1169px) {
+    .nav-on-left .cd-logo {
+        left: auto;
+        right: 5%;
+    }
+}
+@media only screen and (min-width: 1170px) {
+    .cd-logo {
+        top: 18px;
+        left: 4em;
+    }
+}
+
+/* Ne pas afficher le fond noir de boostrapt à l'apparition d'une modal (BUG) */
+/*.modal-backdrop.in {
+    opacity: 0 !important;
+    display:none;
+}*/
+
+
+/* --------------- */
+.product_type {
+    background-color: white;
+}
+.product_empty {
+    background: black;
+}
+
+
+

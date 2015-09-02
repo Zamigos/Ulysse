@@ -1,0 +1,76 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="page-header">
+            <h1>Ajouter un produits</h1>
+        </div>
+        <p class="well">
+            Pour ajouter un produit sélectionne une catégorie, le produit type auquel correspond celui que tu désires
+            vendre <br>
+            Si ce dernier n'apparait pas dans la liste alors il te faudra ajouter ce produit type. Ce produit
+            ne sera visible par les autre membres que lorsque qu'il aura été validé par un administrateur.
+        </p>
+
+        <div class="form-group">
+            <label for="choiceCategory">Sélectionne une catégorie</label>
+            <select name="choiceCategory" id="choiceCategory" class="form-control">
+                <option>Selectionne une catégorie</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.wording }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="result">
+        </div>
+
+        <div class="form">
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        //Choix Catégorie
+        $(document).on('change', '#choiceCategory', function () {
+
+            var idCat = $('#choiceCategory').val();
+
+            $.ajax({
+                url: '{{ path('sale_add_choice_product') }}',
+                type: 'POST',
+                data: {'id': idCat},
+                success: function (e) {
+                    $('.result').html(e);
+                }
+            });
+
+        });
+        //Choix Produit
+        $(document).on('change', '#choiceProduct', function () {
+
+            var idPrdct = $('#choiceProduct').val();
+            var idCat = $('#choiceCategory').val();
+
+            $.ajax({
+                url: '{{ path('sale_new') }}',
+                type: 'POST',
+                data: {'id': idPrdct, 'idCat' : idCat},
+                success: function (e) {
+                    $('.form').html(e);
+                }
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}

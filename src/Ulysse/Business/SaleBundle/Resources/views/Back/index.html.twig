@@ -1,0 +1,186 @@
+{% extends ":back:base.html.twig" %}
+
+{% block title %}Produits en vente{% endblock %}
+
+{% block body -%}
+    <section class="content-header">
+        <h1>
+            Gestion des produits en vente
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Produits en vente</li>
+        </ol>
+    </section>
+    <section class="content" id="sale">
+        {% block content %}
+            {% include 'UlysseBusinessSaleBundle:Back:list.html.twig' %}
+        {% endblock content %}
+    </section>
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        $("body").on('click', '.sale_show', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('sale_show_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.sale_block', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('sale_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('sale_block_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.sale_unblock', function () {
+            var path = "{{ path('sale_list_back') }}";
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('sale_unblock_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#back_list', function () {
+            var path = "{{ path('sale_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#all', function () {
+            var path = "{{ path('sale_list_back', {'mode': 'all'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#finished', function () {
+            var path = "{{ path('sale_list_back', {'mode': 'finished'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#pending', function () {
+            var path = "{{ path('sale_list_back', {'mode': 'pending'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#blocked', function () {
+            var path = "{{ path('sale_list_back', {'mode': 'blocked'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#moderate', function () {
+            var idRating = $(this).attr('rating');
+            var idSale = $("body").find("#idsale").attr('idsale');
+            var path = "{{ path('rating_moderate') }}/" + idRating + "/" + idSale;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#sale').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.paginate_button', function () {
+            var className = $(this).attr('class');
+            if (className.search('disabled') == -1) {
+                var mode = $(this).attr('mode');
+                var page = $(this).attr('page');
+                var path = "{{ path('sale_list_back') }}/" + mode + "/" + page;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: '',
+                    cache: false,
+                    success: function (data) {
+                        $('#sale').html(data);
+                        window.history.pushState('', '', path);
+                    }
+                });
+            }
+            return false;
+        });
+        $("body").on('submit', '.form_edit_sale', function () {
+            var id = $(this).attr('id');
+            var path = "{{ path('sale_show_back') }}/" + id;
+            var form = $(this);
+            $.post("{{ path('sale_update_back') }}/" + id, form.serialize(),
+                    function success(data) {
+                        $('#sale').html(data);
+                        window.history.pushState('', '', path);
+                    })
+            return false;
+        });
+    </script>
+{% endblock %}

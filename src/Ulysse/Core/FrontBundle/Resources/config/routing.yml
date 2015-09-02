@@ -1,0 +1,3 @@
+ulysse_homepage:
+    path:     /
+    defaults: { _controller: UlysseCoreFrontBundle:Main:index }

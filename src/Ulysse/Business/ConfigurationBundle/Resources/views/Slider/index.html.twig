@@ -1,0 +1,35 @@
+{% extends 'UlysseBusinessConfigurationBundle:Back:index.html.twig' %}
+
+{% block content -%}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Extension</th>
+                                <th>Alt</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td>{{ entity.extension }}</td>
+                                    <td>{{ entity.alt }}</td>
+                                    <td>
+                                        <a href="{{ path('slider_show', { 'id': entity.id }) }}" class="btn btn-primary">Détails</a>
+                                        <a href="{{ path('slider_update', { 'id': entity.id }) }}" class="btn btn-primary">Editer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ path('slider_create') }}" class="btn btn-primary">Créer</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

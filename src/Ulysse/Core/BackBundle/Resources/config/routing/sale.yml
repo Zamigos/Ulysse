@@ -1,0 +1,35 @@
+sale_show_back:
+    path:     /show/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:show, id: null }
+
+sale_list_back:
+    path:     /list/{mode}/{page}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:list, mode: all , page: 1 }
+
+sale_validate_back:
+    path:     /validate/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:validate, id: null }
+
+sale_refuse_back:
+    path:     /refuse/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:refuse, id: null }
+
+sale_edit_back:
+    path:     /edit/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:edit, id: null }
+
+sale_update_back:
+    path:     /update/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:update, id: null }
+
+sale_block_back:
+    path:     /block/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:block, id: null }
+
+sale_unblock_back:
+    path:     /unblock/{id}
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:unblock, id: null }
+
+sale_back:
+    path:     /
+    defaults: { _controller: UlysseBusinessSaleBundle:SaleBack:index}

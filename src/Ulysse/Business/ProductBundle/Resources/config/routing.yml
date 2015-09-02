@@ -1,0 +1,11 @@
+ulysse_business_product_product:
+    resource: "@UlysseBusinessProductBundle/Resources/config/routing/product.yml"
+    prefix:   /product
+
+ulysse_business_product_comment:
+    resource: "@UlysseBusinessProductBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+
+search_product:
+    path:   /search
+    defaults: { _controller: UlysseBusinessProductBundle:Search:search }

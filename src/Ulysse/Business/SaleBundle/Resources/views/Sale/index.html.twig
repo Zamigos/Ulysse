@@ -1,0 +1,159 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>{{ titlePage }}</h1>
+    </div>
+
+    <div class="row">
+        {% for sale in entities %}
+            <div class="col-sm-6 col-md-4 product_sale">
+                <div class="thumbnail">
+
+                    {% if sale.image %} {# Si le vendeur à ajouter une image à son produit #}
+                        <img src="{{ (sale.image.webPath) | apply_filter('thumb_product_show') }}"
+                             alt="{{ sale.image.alt }}"/>
+                    {% else %} {# Sinon on prend par défault celle du produit Type #}
+                        <img src="{{ sale.product.image.webPath | apply_filter('thumb_product_show') }}"
+                             alt="{{ sale.product.image.alt }}"/>
+                    {% endif %}
+
+                    <div class="caption">
+                        <p class="shape"><span class="label label-default">{{ sale.shape.wording }}</span></p>
+
+                        <p class="date">{{ sale.getDateAdded | date('d/m/Y H:i') }}</p>
+
+                        <h3><span class="badge">x{{ sale.stock }}</span>{{ sale.name | truncate(25) }}</h3>
+
+                        <p class="price">{{ sale.price }}€</p>
+
+
+                        <p class="text-center">
+                            <a href="{{ path('sale_show', { 'id': sale.id }) }}" class="btn btn-default"
+                               role="button">Voir l'article</a>
+                            {% if app.user and app.user.id == sale.user.id %}
+                                <a href="{{ path('sale_edit', { 'id': sale.id }) }}" class="btn btn-primary">Modifier</a>
+                            {% elseif app.session.get('articleInMyCart') and app.session.get('articleInMyCart') == sale.id %}
+                                {# @TODO : Méthode pour savoir si le produit est dans mon panier ou non #}
+                                <a href="{{ path('ulysse_businnes_delete_article_cart', { 'article_id' : sale.id }) }}">Supprimer
+                                    de mon panier</a>
+                            {% elseif app.user %}
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#Purchase{{ sale.id }}">
+                                    Ajouter au panier
+                                </button>
+                            {% elseif app.user is empty %}
+                                <div class="text-center btn_cart">
+                                    <a type="button" class="btn btn-primary" href="{{path('fos_user_security_login')}}">
+                                        Connectez vous pour acheter ce produit !
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </p>
+                        <p class="owner"><a href="{{ path('ulysse_user_show', { 'id' : sale.user.id }) }}">@{{ sale.user.username }}</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if nbPages > 1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <ul class="pagination">
+                            <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}">
+                                <a href="{{ path('sale', {'page': 1}) }}"><<</a>
+                            </li>
+                            <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}">
+                                <a href="{{ path('sale', {'page': page - 1}) }}"><</a>
+                            </li>
+                            {% if nbPages < 5 %}
+                                {% set start = 1 %}
+                                {% set end = nbPages %}
+                            {% elseif page < 3 %}
+                                {% set start = 1 %}
+                                {% set end = 5 %}
+                            {% elseif page > nbPages-3 %}
+                                {% set start = nbPages-4 %}
+                                {% set end = nbPages %}
+                            {% else %}
+                                {% set start = page-2 %}
+                                {% set end = page+2 %}
+                            {% endif %}
+                            {% for p in range(start, end) %}
+                                <li class="paginate_button{% if p == page %} active{% endif %}">
+                                    <a href="{{ path('sale', {'page': p}) }}">{{ p }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}">
+                                <a href="{{ path('sale', {'page': page + 1}) }}">></a>
+                            </li>
+                            <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}">
+                                <a href="{{ path('sale', {'page': nbPages}) }}">>></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block modal %}
+    {% for entity in entities %}
+        {% if app.user and app.user.id != entity.user.id %}
+            <div class="modal fade purchaseModal" id="Purchase{{ entity.id }}" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ajouter
+                                <strong>{{ entity.product.name }}</strong> dans mon panier</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>{{ entity.price }}€</h4>
+
+                            <div class="form-group">
+                                <label for="for-control">Quantité : </label>
+                                <select class="form-control quantityToAdd">
+                                    {% for i in 1..entity.stock %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><br>#}
+                            <button type="button" data-id-sale="{{ entity.id }}"
+                                    class="btn btn-success addToMyCart">Confirmer et continuer mes achats
+                            </button>
+                            <button type="button" data-id-sale="{{ entity.id }}"
+                                    class="btn btn-primary addAndPay">Confirmer et payer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('body').on('click', '.addToMyCart', function () {
+            var quantityToAdd = $(this).parents('.purchaseModal').find('.quantityToAdd').val();
+            var id_product = $(this).attr('data-id-sale');
+
+            document.location.href = "{{  path('ulysse_business_cart_homepage') }}" + "/add/" + id_product + '/' + quantityToAdd;
+        });
+        $('body').on('click', '.addAndPay', function () {
+            var quantityToAdd = $(this).parents('.purchaseModal').find('.quantityToAdd').val();
+            var id_product = $(this).attr('data-id-sale');
+
+            document.location.href = "{{  path('ulysse_business_cart_homepage') }}" + "/add/" + id_product + '/' + quantityToAdd + '/true';
+        });
+    </script>
+{% endblock script %}

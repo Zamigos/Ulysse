@@ -1,0 +1,28 @@
+{% extends ":back:base.html.twig" %}
+
+{% block body -%}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ entity.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Wording</th>
+                                <td>{{ entity.wording }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="{{ path('tag') }}" class="btn btn-primary">
+                        Retourner à la liste
+                    </a>
+                    <a href="{{ path('tag_delete', { 'id' : entity.id }) }}" class="btn btn-primary">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock body %}

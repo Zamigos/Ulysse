@@ -1,0 +1,11 @@
+ulysse_business_cart_homepage:
+    path:     /cart
+    defaults: { _controller: UlysseBusinessCartBundle:Default:index }
+
+ulysse_business_add_article_cart:
+    path:     /cart/add/{id_article}/{quantity}/{redirect}
+    defaults: { _controller: UlysseBusinessCartBundle:Default:addArticleToMyCart, redirect: false }
+
+ulysse_businnes_delete_article_cart:
+    path:     /cart/delete/{id_article}
+    defaults: { _controller: UlysseBusinessCartBundle:Default:deleteArticleFromMyCart }

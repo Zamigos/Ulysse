@@ -1,0 +1,20 @@
+{% if configuration.shopname is  defined and configuration.shopname != '' %}
+    <p>© {{ "now"|date("Y") }} {{configuration.shopname}} - <a href="#" data-toggle="modal" data-target="#mention">Mentions Légales</a></p>
+{% else %}
+    <p>© {{ "now"|date("Y") }} Ulysse - <a href="#" data-toggle="modal" data-target="#mention">Mentions Légales</a></p>
+{% endif %}
+
+<div class="modal fade" id="mention" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h1 class="modal-title" id="myModalLabel">MENTIONS LÉGALES</h1>
+            </div>
+            <div class="modal-body">
+                {{ configuration.legalNotice | raw }}
+            </div>
+        </div>
+    </div>
+</div>
+

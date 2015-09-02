@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ulysse CMS{% endblock %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,600' rel='stylesheet' type='text/css'>
+    {% stylesheets output="css/compiled/main.css" filter="cssrewrite"
+    "vendor/side-shopping-cart/css/reset.css"
+    "vendor/mega-site-navigation/css/reset.css"
+    "vendor/mega-site-navigation/css/style.css"
+    "vendor/side-shopping-cart/css/style.css"
+    "vendor/bootstrap/css/bootstrap.css"
+    "vendor/font-awesome/css/font-awesome.min.css"
+    "css/error.css"
+    "css/front.css"
+    "css/ulysse-style.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+{{ render(controller('UlysseBusinessCartBundle:Default:menuCartFront')) }}
+
+<header class="cd-main-header">
+    <a class="cd-logo" href="{{ path('ulysse_homepage') }}">
+        {{ render(controller('UlysseBusinessConfigurationBundle:Configuration:getLogo')) }}
+    </a>
+
+    <ul class="cd-header-buttons">
+        <li><a class="cd-search-trigger" href="#cd-search"><span></span></a></li>
+        <li><a class="cd-nav-trigger" href="#cd-primary-nav"><span></span></a></li>
+    </ul>
+    <!-- cd-header-buttons -->
+</header>
+
+<main class="cd-main-content">
+    {% block slider %}{% endblock %}
+    <div class="container">
+        {% include ":front:flashbag.html.twig" %}
+
+        {% block body %}{% endblock %}
+    </div>
+</main>
+<div class="cd-overlay"></div>
+
+{% include ":front:navigation.html.twig" %}
+
+{% block modal %}
+{% endblock %}
+
+<footer class="container-fluid">
+    {{ render(controller('UlysseBusinessConfigurationBundle:Configuration:getFooter')) }}
+</footer>
+
+{% block script %}
+    {% javascripts output="js/compiled/main.js"
+    "vendor/modernizr/modernizr.js"
+    "vendor/jQuery/jquery-2.1.4.min.js"
+    "vendor/mega-site-navigation/js/jquery.mobile.custom.min.js"
+    "vendor/mega-site-navigation/js/main.js"
+    "vendor/bootstrap/js/bootstrap.min.js"
+    "vendor/side-shopping-cart/js/main.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {{ render(controller('UlysseBusinessConfigurationBundle:Configuration:checkDeployment')) }}
+{% endblock script %}
+
+</body>
+</html>

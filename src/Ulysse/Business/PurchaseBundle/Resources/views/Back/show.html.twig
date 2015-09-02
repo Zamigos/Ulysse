@@ -1,0 +1,30 @@
+{% extends parent %}
+
+{% block content %}
+    {{ render(controller('UlysseBusinessPurchaseBundle:purchaseBack:header')) }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'UlysseBusinessPurchaseBundle:Back:side.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="box">
+                <center>
+                    <h1>
+                        <small>Ref:</small> {{ entity.id }} <small>du</small> {{entity.date | date('d/m/Y')}}
+                    </h1>
+                    <p class="well">
+                        <strong>Les commandes suivante sont passées par {{ entity.user.username }} : </strong><br>
+                        {% for salepurchase in entity.salepurchase %}
+                            - @{{ salepurchase.sale.user.username }}
+                            / {{ salepurchase.sale.name }}
+                            / quantité : {{ salepurchase.quantity }}
+                            / prix total : {{ salepurchase.sale.price*salepurchase.quantity }}€
+                            => {{ salepurchase.status.wording }}<br>
+                        {% endfor %}
+                        <strong>Pour un montant total de {{ entity.amounttotal }}€</strong>
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

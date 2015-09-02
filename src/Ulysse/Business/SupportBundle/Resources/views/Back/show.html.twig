@@ -1,0 +1,72 @@
+{% extends parent %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ render(controller('UlysseBusinessSupportBundle:SupportBack:Side'))}}
+        </div>
+        <div class="col-md-9">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <a href="{{path('user_show_back', { id : ticket.user.id })}}">
+                            {{ ticket.user.username }}
+                        </a>
+                        : #{{ ticket.user.id }} - {{ ticket.title }}</h3>
+                    <span class="pull-right">{{ ticket.date | date('d/m/Y H:i') }}</span>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        <p>{{ ticket.content|nl2br }}</p>
+                    </blockquote>
+                    {% if ticket.fenced == false %}
+                        <button class="btn btn-default" type="button" id="fence" id_ticket="{{ticket.id}}">Clôturer le ticket</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Réponses :</h3>
+                </div>
+                <div class="box-body">
+                    <div class="direct-chat-messages">
+                        {% for response in responses %}
+                            {% if response.user.id == app.user.id %}
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-info clearfix">
+                                        <a href="{{path('user_show_back', { id : response.user.id })}}"><span class="direct-chat-name pull-right">{{response.user.username}}</span></a>
+                                        <span class="direct-chat-timestamp pull-left">{{ response.date|date('d/m/Y H:i') }}</span>
+                                    </div>
+                                    <div class="direct-chat-text">
+                                        {{response.content}}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-info clearfix">
+                                        <a href="{{path('user_show_back', { id : response.user.id })}}"><span class="direct-chat-name pull-left">{{response.user.username}}</span></a>
+                                        <span class="direct-chat-timestamp pull-right">{{ response.date|date('d/m/Y H:i') }}</span>
+                                    </div>
+                                    <div class="direct-chat-text">
+                                        {{response.content}}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% if ticket.fenced == false %}
+                <div class="box-footer">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Réponse" name="response" id="response">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-flat" type="button" id="reply" id_ticket="{{ticket.id}}">Répondre</button>
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

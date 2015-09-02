@@ -1,0 +1,81 @@
+{% extends parent %}
+
+{% block content %}
+    {{ render(controller('UlysseBusinessProductBundle:ProductBack:header')) }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'UlysseBusinessProductBundle:Back:side.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{title}}</h3>
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input type="text" placeholder="Chercher une fiche" class="form-control input-sm">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                                {% for entity in entities %}
+                                    <tr class="fiche_show" id="{{entity.id}}" role="row" class="odd" style="cursor:pointer">
+                                        <td class="sorting_1">#{{ entity.id }}</td>
+                                        <td>{{ entity.name }}</td>
+                                        <td>{{ entity.category }}</td>
+                                        <td>{{ entity.state }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.mail-box-messages -->
+                </div><!-- /.box-body -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            {% if nbPages > 1 %}
+                                <ul class="pagination">
+                                    <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}" page="{{1}}" mode="{{mode}}">
+                                        <a href=""><<</a>
+                                    </li> 
+                                    <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}" page="{{page-1}}" mode="{{mode}}">
+                                        <a href=""><</a>
+                                    </li> 
+                                    {% if nbPages < 5 %}
+                                        {% set start = 1 %}
+                                        {% set end = nbPages %}
+                                    {% elseif page < 3 %}
+                                        {% set start = 1 %}
+                                        {% set end = 5 %}
+                                    {% elseif page > nbPages-3 %}
+                                        {% set start = nbPages-4 %}
+                                        {% set end = nbPages %}
+                                    {% else %}
+                                        {% set start = page-2 %}
+                                        {% set end = page+2 %}
+                                    {% endif %}
+                                    {% for p in range(start, end) %}
+                                        <li  class="paginate_button{% if p == page %} active{% endif %}" page="{{p}}" mode="{{mode}}">
+                                            <a href="">{{ p }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}" page="{{page+1}}" mode="{{mode}}">
+                                        <a href="">></a>
+                                    </li>
+                                    <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}" page="{{nbPages}}" mode="{{mode}}">
+                                        <a href="">>></a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

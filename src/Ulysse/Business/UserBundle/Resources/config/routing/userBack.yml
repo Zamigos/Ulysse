@@ -1,0 +1,31 @@
+user_show_back:
+    path:     /show/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:show, id: null }
+
+user_list_back:
+    path:     /{mode}/{page}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:list, mode: all , page: 1 }
+
+user_bannish_back:
+    path:     /bannish/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:bannish, id: null }
+
+user_activate_back:
+    path:     /validate/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:activate, id: null }
+
+user_block_back:
+    path:     /block/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:block, id: null }
+
+user_unblock_back:
+    path:     /unblock/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:unblock, id: null }
+
+user_edit_back:
+    path:     /edit/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:edit, id: null }
+
+user_update_back:
+    path:     /update/{id}
+    defaults: { _controller: UlysseBusinessUserBundle:UserBack:update, id: null }

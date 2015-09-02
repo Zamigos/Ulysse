@@ -1,0 +1,30 @@
+status:
+    path:     /
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:index" }
+
+status_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:show" }
+
+status_new:
+    path:     /new
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:new" }
+
+status_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:create" }
+    methods:  POST
+
+status_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:edit" }
+
+status_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:update" }
+    methods:  [POST, PUT]
+
+status_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Status:delete" }
+    methods:  [POST, DELETE]

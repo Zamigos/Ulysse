@@ -1,0 +1,11 @@
+rating_moderate:
+    path:     /moderate/{idRating}/{idSale}
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:RatingBack:moderate", idRating : null, idSale : null }
+
+add_rating_to_user:
+    path:   /add/rating/{id}
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:addRatingToUser" }
+
+create_rating_user:
+    path:   /create/{id}/rating
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:createRatingToUser" }

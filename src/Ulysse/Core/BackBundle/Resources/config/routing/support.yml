@@ -1,0 +1,23 @@
+support_reply_back:
+    path:     /reply/{id}
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:reply, id: null }
+
+support_show_back:
+    path:     /show/{id}
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:show, id: null }
+
+support_fence_back:
+    path:     /fence/{id}
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:fence, id: null }
+
+support_response_back:
+    path:     /response
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:response }
+
+support_write_back:
+    path:     /write/{user}
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:write, user: null }
+
+support_list_back:
+    path:     /{mode}/{page}
+    defaults: { _controller: UlysseBusinessSupportBundle:SupportBack:list, mode: all, page : 1 }

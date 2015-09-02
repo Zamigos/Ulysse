@@ -1,0 +1,178 @@
+{% extends ":back:base.html.twig" %}
+
+{% block title %}Support{% endblock %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>
+            Support
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Support</li>
+        </ol>
+    </section>
+    <section class="content" id="messagerie">
+        {% block content %}
+            {% include 'UlysseBusinessSupportBundle:Back:list.html.twig' %}
+        {% endblock content %}
+    </section>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script>
+        $("body").on('click', '#fence', function () {
+            var id = $(this).attr('id_ticket')
+            var path = "{{ path('support_fence_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                }
+            });
+            return false;
+        });
+        $(document).keypress(function (e) {
+            if (e.which == 13 && $('#response').val()) {
+                var id = $('body').find("#reply").attr('id_ticket')
+                var path = "{{ path('support_reply_back') }}/" + id;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: {response: $('#response').val()},
+                    cache: false,
+                    success: function (data) {
+                        $('#messagerie').html(data);
+                        window.history.pushState('', '', "{{ path('support_show_back') }}/" + id);
+                    }
+                });
+                return false;
+            }
+        });
+        $("body").on('click', '#reply', function () {
+            var id = $(this).attr('id_ticket')
+            var path = "{{ path('support_reply_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: {response: $('#response').val()},
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', "{{ path('support_show_back') }}/" + id);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#fencedTickets', function () {
+            var path = "{{ path('support_list_back', {'mode': 'fenced'}) }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('support_list_back', {'mode': 'fenced'}) }}",
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#allMessages', function () {
+            var path = "{{ path('support_list_back', {'mode': 'all'}) }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('support_list_back', {'mode': 'all'}) }}",
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#notSeenMessages', function () {
+            var path = "{{ path('support_list_back', {'mode': 'notseen'}) }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('support_list_back', {'mode': 'notseen'}) }}",
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#unanswerableMessages', function () {
+            var path = "{{ path('support_list_back', {'mode': 'unanswerable'}) }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('support_list_back', {'mode': 'unanswerable'}) }}",
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.message_list', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('support_show_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: "{{ path('support_show_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#messagerie').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.paginate_button', function () {
+            var className = $(this).attr('class');
+            if (className.search('disabled') == -1) {
+                var mode = $(this).attr('mode');
+                var page = $(this).attr('page');
+                var path = "{{ path('support_list_back') }}/" + mode + "/" + page;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: '',
+                    cache: false,
+                    success: function (data) {
+                        $('#messagerie').html(data);
+                        window.history.pushState('', '', path);
+                    }
+                });
+            }
+            return false;
+        });
+        $("body").on('submit', '.form_write_ticket', function (e) {
+            var id = $(this).attr('id');
+            var path = "{{ path('support_show_back') }}/" + id;
+            $.ajax({
+                url: "{{ path('support_write_back') }}/{{ (user is defined) ? user : '' }}",
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                    success: function (data) {
+                        $('#messagerie').html(data);
+                        window.history.pushState('', '', path);
+                    }
+            });
+            e.preventDefault();
+        });
+    </script>
+{% endblock %}

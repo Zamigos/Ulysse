@@ -1,0 +1,39 @@
+product_new:
+    path:     /new
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:new" }
+
+product_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:create" }
+    methods:  POST
+
+new_products_added:
+    path:   /news/{page}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:getPageNewProduct", page: 1 }
+
+top_product_sale:
+    path:   /top/{page}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:getPageTopSaleProduct", page: 1 }
+
+product_in_selection:
+    path:   /selected/{page}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:getPageProductInSelection", page: 1 }
+
+product_delete:
+    path:     /delete/{id}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:delete" }
+    methods:  [POST, DELETE]
+
+product_show:
+    path:     /show/{id}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:show" }
+
+product:
+    path:     /{page}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:index", page: 1}
+    requirements:
+        page: \d+
+
+get_all_products_by_category:
+    path:    /{category_name}/{page}
+    defaults: { _controller: "UlysseBusinessProductBundle:Product:getAllProductByCategory" , page: 1}

@@ -1,0 +1,25 @@
+.error-page > .headline {
+    font-size: 150px;
+    font-weight: 300;
+    text-align: center;
+}
+.error-page {
+    margin: 70px auto 0;
+    width: 600px;
+}
+
+.error-page > .error-content {
+    display: block;
+}
+
+.error-page > .error-content > h3{
+    font-size: 23px;
+}
+
+.error-blue {
+    color: #3c8dbc;
+}
+
+.error-green {
+    color: #69AA6F;
+}

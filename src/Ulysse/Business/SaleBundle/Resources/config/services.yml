@@ -1,0 +1,18 @@
+services:
+    shape_form:
+        factory_service: form.factory
+        factory_method: createNamed
+        class: Symfony\Component\Form\Form
+        arguments:
+            - shape
+            - shape_form
+
+    shape_type:
+        class: Ulysse\Business\SaleBundle\Form\Type\ShapeType
+        tags:
+            - { name: form.type, alias: shape_form }
+
+    shape_handler:
+        class: Ulysse\Business\SaleBundle\Form\Handler\ShapeHandler
+        arguments: [@shape_form, @request, @doctrine.orm.entity_manager]
+        scope: request

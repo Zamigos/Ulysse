@@ -1,0 +1,18 @@
+services:
+    pay_form:
+        factory_service: form.factory
+        factory_method: createNamed
+        class: Symfony\Component\Form\Form
+        arguments:
+            - pay
+            - pay_form
+
+    pay_type:
+        class: Ulysse\Business\ProductBundle\Form\Type\TagType
+        tags:
+            - { name: form.type, alias: pay_form }
+
+    pay_handler:
+        class: Ulysse\Business\ProductBundle\Form\Handler\TagHandler
+        arguments: [@pay_form, @request, @doctrine.orm.entity_manager]
+        scope: request

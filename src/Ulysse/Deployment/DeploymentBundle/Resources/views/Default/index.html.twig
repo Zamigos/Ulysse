@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Ulysse - Déploiement{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% stylesheets output="css/compiled/deployment.css" filter="cssrewrite"
+            "vendor/bootstrap/css/bootstrap.css"
+            "@UlysseDeploymentDeploymentBundle/Resources/public/css/style.css" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    </head>
+    <body>
+        <form id="msform">
+            <ul id="progressbar">
+                <li class="active">Déploiement</li>
+                <li>Administrateur</li>
+                <li>Base de données</li>
+                <li>Boutique</li>
+            </ul>
+            <fieldset>
+                <h2 class="fs-title">Déploiement</h2>
+                <p class="fs-subtitle">
+                    Bienvenue dans l'assitant d'installation d'Ulysse.
+                    Celui-ci vous guidera au cours du déploiement de votre site.
+                </p>
+                <input type="button" name="next" class="next action-button" value="Continuer" id="intro"/>
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">Informations sur l'administrateur</h2>
+                <h3 class="fs-subtitle">
+                    Le pseudo et le mot de passe de l'administrateur sont des informations importantes 
+                    donnant accès à d'importantes fonctionnalités du site.<br>
+                    Par sécurité il vous est conseillé de ne pas les transmettre.
+                </h3>
+                <div>
+                    <img class="loadingDiv" src="{{ asset('img/ajax-loader.gif') }}" alt="ajax loader">
+                </div>
+                <div id='errorAdministrator'>
+                </div>
+                <input type="text" name="username" id="username" placeholder="Pseudo" />
+                <input type="email" name="email" id="email" placeholder="Adresse email" />
+                <input type="password" name="password" id="password" placeholder="Mot de passe" />
+                <input type="password" name="checkPassword" id="checkPassword" placeholder="Répéter le mot de passe" />
+                <input type="button" name="previous" class="previous action-button" value="Retour" />
+                <input type="button" name="next" class="next action-button" value="Continuer" id="administrator"/>
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">Informations sur la base de données</h2>
+                <h3 class="fs-subtitle">
+                    Cette page contient un formulaire vous permettant d'indiquer à l'installeur où se trouve le serveur de base de données <br>
+                    et quelle base de données il doit utiliser, avec les identifiants nécessaires. <br>
+                    Toutes ces informations doivent vous avoir été fournies par votre hébergeur.
+                </h3>
+                <div>
+                    <img class="loadingDiv" src="{{ asset('img/ajax-loader.gif') }}" alt="ajax loader">
+                </div>
+                <div id='errorDatabase'>
+                </div>
+                <input type="text" name="dataBaseHost" id="dataBaseHost" placeholder="Adresse du serveur de la base" />
+                <input type="text" name="dataBasePort" id="dataBasePort" placeholder="Port" />
+                <input type="text" name="dataBaseName" id="dataBaseName" placeholder="Nom de la base" />
+                <input type="text" name="dataBaseUser" id="dataBaseUser" placeholder="Identifiant de la base" />
+                <input type="password" name="dataBasePassword" id="dataBasePassword" placeholder="Mot de passe de la base" />
+                <input type="button" name="previous" class="previous action-button" value="Retour"/>
+                <input type="button" name="next" class="next action-button" value="Continuer" id="database"/>
+            </fieldset>
+            <fieldset id="errors">
+                <h2 class="fs-title">Informations sur la boutique</h2>
+                <h3 class="fs-subtitle">
+                    C'est ici que vous commencez à personnaliser votre boutique : 
+                    donnez-lui un nom et un logo.
+                </h3>
+                <div>
+                    <img class="loadingDiv" src="{{ asset('img/ajax-loader.gif') }}" alt="ajax loader">
+                </div>
+                <div id='errorShop'>
+                </div>
+                <input type="text" name="name" id="name" placeholder="Nom de votre boutique" />
+                <input type="file" name="logo" placeholder="logo" />
+                <input type="button" name="previous" class="previous action-button" value="Previous"/>
+                <input type="button" name="next" class="submit action-button" value="Terminer" id="shop"/>
+            </fieldset>
+        </form>
+        {% block script %}
+            {% javascripts output="js/compiled/main_back.js"
+                    "vendor/jQuery/jquery-2.1.4.min.js"
+                    "@UlysseDeploymentDeploymentBundle/Resources/public/js/deployment.js" 
+                    "@UlysseDeploymentDeploymentBundle/Resources/public/js/jquery.easing.js" 
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            <script>
+                $("body").on('click', '#intro', function () {
+                    moveFiledset($("#intro"));
+                });
+                $("body").on('click', '#administrator', function () {
+                    var path = "{{ path('check_administrator') }}";
+                    $('#errorAdministrator').html('');
+                    var data = {
+                        username: $("#username").val(),
+                        email: $("#email").val(),
+                        password: $("#password").val(),
+                        checkPassword: $("#checkPassword").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: path,
+                        data: data,
+                        cache: false,
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if (!data.error) {
+                                moveFiledset($("#administrator"));
+                            } else {
+                                $('#errorAdministrator').html(data.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+                $("body").on('click', '#database', function () {
+                    var path = "{{ path('check_database') }}";
+                    $('#errorDatabase').html('');
+                    var data = {
+                        dataBaseHost: $("#dataBaseHost").val(),
+                        dataBasePort: $("#dataBasePort").val(),
+                        dataBaseName: $("#dataBaseName").val(),
+                        dataBaseUser: $("#dataBaseUser").val(),
+                        dataBasePassword: $("#dataBasePassword").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: path,
+                        data: data,
+                        cache: false,
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if (!data.error) {
+                                moveFiledset($("#database"));
+                            } else {
+                                $('#errorDatabase').html(data.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+                $("body").on('click', '#shop', function () {
+                    var path = "{{ path('check_shop') }}";
+                    $('#errorShop').html('');
+                    $.ajax({
+                        type: "POST",
+                        url: path,
+                        data: {name: $("#name").val()},
+                        cache: false,
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if (!data.error) {
+                                submit();
+                            } else {
+                                $('#errorShop').html(data.message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+                function submit() {
+                    var path = "{{ path('generate_deployment') }}";
+                    $.ajax({
+                        type: "POST",
+                        url: path,
+                        data: '',
+                        cache: false,
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if (!data.error) {
+                                alert('Déploiement effectué avec succès!');
+                                $(location).attr('href', "{{ path('ulysse_back_homepage') }}");
+                            } else {
+                                $('#errorShop').html(data.message);
+                            }
+                        }
+                    });
+                }
+
+            </script>
+        {% endblock %}
+    </body>
+</html>
+

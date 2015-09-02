@@ -1,0 +1,44 @@
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
+            remember_me:
+                key:             %secret%
+                lifetime: 1800
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Droits des admin produit
+        - { path: ^/admin/product/edit, role: ROLE_ADMIN_SHEETS }
+        - { path: ^/admin/product/update, role: ROLE_ADMIN_SHEETS }
+        - { path: ^/admin/product/validate, role: ROLE_ADMIN_SHEETS }
+        - { path: ^/admin/product/refused, role: ROLE_ADMIN_SHEETS }
+        # Droit du admin support
+        - { path: ^/admin/support, role: ROLE_ADMIN_SUPPORT }
+        - { path: ^/admin/user, role: ROLE_ADMIN_SUPPORT }
+        - { path: ^/admin/purchase, role: ROLE_ADMIN_SUPPORT }
+        - { path: ^/admin/sale, role: ROLE_ADMIN_SUPPORT }
+        # Droit sur la configuration du site
+        - { path: ^/admin/configuration, role: ROLE_SUPER_ADMIN }
+        # Droits sur l'administration générale
+        - { path: ^/admin, role: ROLE_ADMIN }
+
+    role_hierarchy:
+        ROLE_ADMIN:        ROLE_USER
+        ROLE_ADMIN_SHEETS: ROLE_ADMIN
+        ROLE_ADMIN_SUPPORT: ROLE_ADMIN
+        ROLE_SUPER_ADMIN:  [ROLE_ADMIN_SUPPORT, ROLE_ADMIN_SHEETS]

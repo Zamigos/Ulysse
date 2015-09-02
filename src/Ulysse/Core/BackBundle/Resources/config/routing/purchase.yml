@@ -1,0 +1,11 @@
+purchase_show_back:
+    path:     /show/{id}
+    defaults: { _controller: UlysseBusinessPurchaseBundle:PurchaseBack:show, id: null }
+
+purchase_list_back:
+    path:     /list/{mode}/{page}
+    defaults: { _controller: UlysseBusinessPurchaseBundle:PurchaseBack:list, mode: all , page: 1 }
+
+purchase_back:
+    path:     /
+    defaults: { _controller: UlysseBusinessPurchaseBundle:PurchaseBack:index}

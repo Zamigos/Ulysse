@@ -1,0 +1,20 @@
+{% extends parent %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ render(controller('UlysseBusinessSupportBundle:SupportBack:Side'))}}
+        </div>
+        <div class="col-md-9">
+            <div class="box">
+                <div class="box-header">
+                <div class="box-body pad">
+                    <form class="form_write_ticket" action="" method="post" {{ form_enctype(form) }} >
+                        {{ form_rest(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'UlysseBusinessConfigurationBundle:Back:index.html.twig' %}
+
+{% block content -%}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    {{ form(form) }}
+                </div>
+                <a href="{{ path('slider') }}" class="btn btn-primary">
+                    Retourner à la liste
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

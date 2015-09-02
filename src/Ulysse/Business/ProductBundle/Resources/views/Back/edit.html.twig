@@ -1,0 +1,22 @@
+{% extends parent %}
+
+{% block content %}
+    {{ render(controller('UlysseBusinessProductBundle:ProductBack:header')) }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'UlysseBusinessProductBundle:Back:side.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ entity.name }}</h3>
+                </div>
+                <div class="box-body">
+                    <form class="form_edit_fiche" id="{{ entity.id }}" action="" method="post" {{ form_enctype(edit_form) }} >
+                        {{ form_rest(edit_form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

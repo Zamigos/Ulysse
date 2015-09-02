@@ -1,0 +1,19 @@
+category:
+    path:     /
+    defaults: { _controller: "UlysseBusinessProductBundle:Category:index" }
+
+category_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessProductBundle:Category:show" }
+
+category_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessProductBundle:Category:create" }
+
+category_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessProductBundle:Category:update" }
+
+category_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessProductBundle:Category:delete" }

@@ -1,0 +1,21 @@
+{% if (app.user and is_granted('ROLE_ADMIN')) %}
+        {% set extend = ':back:base.html.twig' %}
+{% else  %}
+    {% set extend = ':front:base.html.twig' %}
+{% endif %}
+
+{% extends extend %}
+
+{% block body %}
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline error-green"> {{ status_code }}</h2>
+            <div class="error-content">
+                <h3><i class="fa fa-warning error-green"></i> Oops, une erreur est survenue sur le serveur.</h3>
+                <p>
+                    Vous pourrez peut-être trouver ce que vous cherchez dans le menu, ou bien lancez une recherche !
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

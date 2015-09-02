@@ -1,0 +1,30 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body -%}
+    <div class="col-md-8 col-md-offset-2 edit_product">
+        <h2>Mon Produit</h2>
+
+        {{ form_start(form) }}
+        <div class="well">
+
+            {{ form_errors(form) }}
+
+            {{ form_row(form.name) }}
+            {{ form_row(form.stock) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.observation) }}
+            {{ form_row(form.shape) }}
+            {{ form_row(form.image) }}
+
+            {% if entity.product.state == 0 and entity.product.addedby == app.user%}
+            </div>
+            <h2>Le produit Type</h2>
+            <div class="well">
+            {% else %}
+                {{ form_row(form.product) }}
+            {% endif %}
+            {{ form_end(form) }}
+            {{ form(delete_form) }}
+        </div>
+    </div>
+{% endblock %}

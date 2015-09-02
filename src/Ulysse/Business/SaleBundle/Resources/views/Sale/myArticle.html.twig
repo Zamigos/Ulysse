@@ -1,0 +1,60 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body -%}
+
+    <div class="page-header">
+        <h1>Mes articles en vente</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            {% for sale in sales %}
+
+                <div class="col-sm-6 col-md-4 product_sale">
+                    <div class="thumbnail">
+
+                        {% if sale.image %} {# Si le vendeur à ajouter une image à son produit #}
+                            <img src="{{ (sale.image.webPath) | apply_filter('thumb_product_show') }}"
+                                 alt="{{ sale.image.alt }}"/>
+                        {% else %} {# Sinon on prend par défault celle du produit Type #}
+                            <img src="{{ sale.product.image.webPath | apply_filter('thumb_product_show') }}"
+                                 alt="{{ sale.product.image.alt }}"/>
+                        {% endif %}
+
+                        <div class="caption">
+                            <p class="shape"><span class="label label-default">{{ sale.shape.wording }}</span></p>
+
+                            <p class="date">{{ sale.getDateAdded | date('d/m/Y H:i') }}</p>
+
+                            <h3><span class="badge">x{{ sale.stock }}</span>{{ sale.name | truncate(25) }}</h3>
+
+                            <p class="price">{{ sale.price }}€</p>
+
+
+                            <p class="text-center">
+                                <a href="{{ path('sale_show', { 'id': sale.id }) }}" class="btn btn-default"
+                                   role="button">Voir l'article</a>
+                                {% if app.user and app.user.id == sale.user.id %}
+                                    <a href="{{ path('sale_edit', { 'id': sale.id }) }}" class="btn btn-primary">Modifier</a>
+                                {% elseif app.session.get('articleInMyCart') and app.session.get('articleInMyCart') == sale.id %}
+                                    {# @TODO : Méthode pour savoir si le produit est dans mon panier ou non #}
+                                    <a href="{{ path('ulysse_businnes_delete_article_cart', { 'article_id' : sale.id }) }}">Supprimer
+                                        de mon panier</a>
+                                {% else %}
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#Purchase{{ sale.id }}">
+                                        Ajouter au panier
+                                    </button>
+
+                                {% endif %}
+                            </p>
+                            <p class="owner"><a
+                                        href="{{ path('ulysse_user_show', { 'id' : sale.user.id }) }}">@{{ sale.user.username }}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

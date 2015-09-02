@@ -1,0 +1,35 @@
+ulysse_business_proceed_to_purchase:
+    path: /purchase/proceed/to/purchase
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:purchaseProducts" }
+
+ulysse_business_check_address:
+    path: /purchase/check/adress
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:checkAddress" }
+
+ulysse_business_list_articles_sale:
+    path: /article/sale
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:listArticlesSale" }
+
+ulysse_businnes_list_command_past:
+    path: /command/past
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:listCommandPast" }
+
+ulysse_business_pay_command_past:
+    path: /command/{id}/pay
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:payOrderPast" }
+
+ulysse_business_resume_order:
+    path: /command/{id}/resume
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:resumeOrder" }
+
+ulysse_business_i_received_package:
+    path: /command/{id}/received
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:iReceivedThePackage" }
+
+ulysse_business_rating:
+    resource: "@UlysseBusinessPurchaseBundle/Resources/config/routing/rating.yml"
+    prefix:   /rating
+
+ulysse_businnes_i_send_package:
+    path: /isend/{id}/package
+    defaults: { _controller: "UlysseBusinessPurchaseBundle:Purchase:iSendMyPackage" }

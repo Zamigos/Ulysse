@@ -1,0 +1,54 @@
+{% extends parent %}
+
+{% block content %}
+    {{ render(controller('UlysseBusinessUserBundle:UserBack:header')) }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'UlysseBusinessUserBundle:Back:side.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="box">
+                <center>
+                    #{{ entity.id }}
+                    <h1>
+                        {{ entity.username }}
+                    </h1>
+                </center>
+                <div class="row">
+                    <div class="col-md-5">
+                        <span class="btn btn-default">Date de dernière connection : {{ entity.lastlogin | date('d/m/Y') }}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="btn btn-default">Email : {{ entity.email }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="btn btn-default">Role : {{ entity.roles.0 }}</span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            {% if not entity.locked %}
+                                <a href="{{ path('support_write_back', {user: entity.id}) }}">
+                                    <button class="btn btn-primary user_ticket" type="button" id="{{entity.id}}">Ouvrir un ticket</button>
+                                </a>
+                            {% endif %}
+                            {% if entity.blocked %}
+                                <button class="btn btn-success user_unblock" type="button" id="{{entity.id}}">Débloquer</button>
+                            {% elseif not entity.locked %}
+                                <button class="btn btn-warning user_block" type="button" id="{{entity.id}}">Bloquer</button>
+                            {% endif %}
+                            {% if entity.locked %}
+                                <button class="btn btn-success user_activate" type="button" id="{{entity.id}}">Activer</button>
+                            {% else %}
+                                <button class="btn btn-danger user_banish" type="button" id="{{entity.id}}">Bannir</button>
+                            {% endif %}
+                        </center>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

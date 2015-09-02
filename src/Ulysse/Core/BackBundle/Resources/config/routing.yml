@@ -1,0 +1,47 @@
+ulysse_back_sale:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/sale.yml"
+    prefix:   /sale
+
+ulysse_back_support:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/support.yml"
+    prefix:   /support
+
+ulysse_back_product:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/product.yml"
+    prefix:   /product
+
+ulysse_back_pruchase:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/purchase.yml"
+    prefix:   /pruchase
+
+ulysse_business_sale_shape:
+    resource: "@UlysseBusinessSaleBundle/Resources/config/routing/shape.yml"
+    prefix:   /shape
+
+ulysse_back_status:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/status.yml"
+    prefix:   /status
+
+ulysse_back_tag:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/tag.yml"
+    prefix:   /tag
+
+ulysse_back_category:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+ulysse_back_user:
+    resource: "@UlysseBusinessUserBundle/Resources/config/routing/userBack.yml"
+    prefix:   /user
+
+ulysse_back_configuration:
+    resource: "@UlysseBusinessConfigurationBundle/Resources/config/routing/configuration.yml"
+    prefix:   /configuration
+
+ulysse_business_configuration_slider:
+    resource: "@UlysseBusinessConfigurationBundle/Resources/config/routing/slider.yml"
+    prefix:   /slider
+
+ulysse_back_homepage:
+    path:     /
+    defaults: { _controller: UlysseCoreBackBundle:Main:index }

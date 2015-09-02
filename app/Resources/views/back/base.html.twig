@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% stylesheets output="css/compiled/main_back.css" filter="cssrewrite"
+            "vendor/bootstrap/css/bootstrap.css"
+            "vendor/font-awesome/css/font-awesome.min.css"
+            "vendor/ionicframework/css/ionicons.min.css"
+            "vendor/iCheck/square/blue.css"
+            "vendor/plugins/morris/morris.css"
+            "vendor/admin-lte/css/AdminLTE.min.css"
+            "vendor/admin-lte/css/skins/skin-green.min.css" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    </head>
+    <body class="skin-green">
+        <div class="wrapper">
+            {% block header %}
+                {% render(controller("UlysseCoreBackBundle:Main:header")) %}
+            {% endblock header %}
+
+            {% block aside %}
+                <aside class="main-sidebar">
+                    <section class="sidebar">
+                        <div class="user-panel">
+                            <div class="pull-left info">
+                                <p>{{ app.user.username }} <i class="fa fa-circle text-success"></i></p>
+                            </div>
+                        </div>
+                        {{ render(controller("UlysseCoreBackBundle:Main:menu")) }}
+                    </section>
+                </aside>
+            {% endblock aside %}
+
+            <div class="content-wrapper">
+                {% block body %}
+
+                {% endblock body %}
+            </div>
+            {% block footer %}
+                <footer class="main-footer">
+                    <div class="pull-right hidden-xs">
+                        <b>Version</b> 2.0
+                    </div>
+                    <strong>Copyright &copy; {{ "now"|date("Y") }} Ulysse.</strong> All rights reserved.
+                </footer>
+            {% endblock footer %}
+        </div>
+
+        {% block script %}
+            {% javascripts output="js/compiled/main_back.js"
+                    "vendor/jQuery/jquery-2.1.4.min.js"
+                    "vendor/bootstrap/js/bootstrap.js"
+                    "vendor/iCheck/icheck.min.js"
+                    "vendor/admin-lte/js/app.min.js"
+                    "vendor/plugins/chartjs/Chart.min.js"
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {{ render(controller('UlysseBusinessConfigurationBundle:Configuration:checkDeployment')) }}
+        {% endblock %}
+    </body>
+</html>

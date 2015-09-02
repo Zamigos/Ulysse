@@ -1,0 +1,61 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+    <div class="row col-md-8 col-md-offset-2">
+        <div class="row page_cart">
+            <div class="page-header">
+                <h1>Mon Panier</h1>
+            </div>
+            {% if entities is empty %}
+                <p class="well">Aucun Produit dans ton panier</p>
+            {% else %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Article</th>
+                        <th>Propriétaire</th>
+                        <th>Quantité</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td scope="row">
+                                {{ loop.index }}
+                            </td>
+                            <td>
+                                <a href="{{ path('sale_show', { 'id': entity.id }) }}">{{ entity.product.name | truncate(40) }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('ulysse_user_show', { 'id' : entity.user.id }) }}">{{ entity.user.username }}</a>
+                            </td>
+                            <td>
+                                {{ quantity[entity.id] }}
+                            </td>
+                            <td>{{ entity.price * quantity[entity.id] }}€</td>
+                            <td>
+                                <a href="{{ path('ulysse_businnes_delete_article_cart', { 'id_article': entity.id }) }}">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row text-center">
+                    <div class="col-md-4 col-md-offset-4">
+                        <h2>
+                            <small>Total :</small>
+                            <br>{{ total_price }}€
+                        </h2>
+                        <a href="{{ path('ulysse_business_check_address') }}" class="btn btn-success center-block">Valider
+                            ma commande</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

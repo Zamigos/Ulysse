@@ -1,0 +1,17 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+
+        <div class="row search_page">
+            <div class="page-header">
+                <h1><em>Recherche :</em> {{ app.request.query.get('q') }}</h1>
+            </div>
+            <div class="col-md-12">
+                {% include '@UlysseBusinessProduct/Product/template.html.twig' %}
+            </div>
+        </div>
+
+
+
+
+{% endblock %}

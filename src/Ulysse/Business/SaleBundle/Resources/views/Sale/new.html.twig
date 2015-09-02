@@ -1,0 +1,98 @@
+<h2>Mon Produit</h2>
+
+    {{ form_start(form) }}
+<div class="well add_product">
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.stock) }}
+    {{ form_row(form.observation) }}
+    {{ form_row(form.shape) }}
+
+    {% if form.product.vars.value is null %}
+</div>
+<h2>Le produit Type</h2>
+<div class="alert alert-info"><strong>Attention !</strong> Soit rigoureux lors de l'ajout d'un produit type ! Ton produit peut être refusé.</div>
+<div class="well add_product">
+    {% else %}
+        {{ form_row(form.product) }}
+    {% endif %}
+    {{ form_end(form) }}
+</div>
+
+<script src="{{ asset('vendor/jQuery/jquery-2.1.4.min.js') }}"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var $container = $('div#ulysse_business_salebundle_sale_product_tag');
+        var $addLink = $('<a href="#" id="add_tag" class="btn btn-sm btn-default">Ajouter un tag</a>');
+
+        $container.append($addLink);
+
+        $addLink.click(function(e) {
+
+            addTag($container);
+
+            e.preventDefault();
+
+            return false;
+
+        });
+
+        var index = $container.find(':input').length;
+
+        if (index == 0) {
+
+            addTag($container);
+
+        } else {
+
+            $container.children('div').each(function() {
+
+                addDeleteLink($(this));
+
+            });
+
+        }
+
+
+        function addTag($container) {
+
+            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Tag n°' + (index+1))
+
+                    .replace(/__name__/g, index));
+
+            addDeleteLink($prototype);
+
+            $container.append($prototype);
+
+            index++;
+
+        }
+
+        function addDeleteLink($prototype) {
+
+            $deleteLink = $('<a href="#" class="btn btn-sm btn-danger delete_tag">Supprimer le tag</a>');
+
+            $prototype.append($deleteLink);
+
+            $deleteLink.click(function(e) {
+
+                $prototype.remove();
+
+                e.preventDefault();
+
+                return false;
+
+            });
+
+        }
+
+    });
+
+</script>
+
+

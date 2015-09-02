@@ -1,0 +1,212 @@
+{% extends ":back:base.html.twig" %}
+
+{% block title %}Fiches produits{% endblock %}
+
+{% block body -%}
+    <section class="content-header">
+        <h1>
+            Gestion des fiches produit
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Fiches produit</li>
+        </ol>
+    </section>
+    <section class="content" id="fiche">
+        {% block content %}
+            {% include 'UlysseBusinessProductBundle:Back:list.html.twig' %}
+        {% endblock content %}
+    </section>
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        $("body").on('click', '.fiche_edit', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('product_edit_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.fiche_validate', function () {
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('product_validate_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.fiche_refuse', function () {
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('product_refuse_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.fiche_selected', function () {
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('product_selected_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.fiche_unselected', function () {
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('product_unselected_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.fiche_show', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('product_show_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#back_list', function () {
+            var path = "{{ path('product_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#untreated', function () {
+            var path = "{{ path('product_list_back', {'mode': 'untreated'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#validated', function () {
+            var path = "{{ path('product_list_back', {'mode': 'validated'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#refused', function () {
+            var path = "{{ path('product_list_back', {'mode': 'refused'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#selected', function () {
+            var path = "{{ path('product_list_back', {'mode': 'selected'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.paginate_button', function () {
+            var className = $(this).attr('class');
+            if (className.search('disabled') === -1) {
+                var mode = $(this).attr('mode');
+                var page = $(this).attr('page');
+                var path = "{{ path('product_list_back') }}/" + mode + "/" + page;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: '',
+                    cache: false,
+                    success: function (data) {
+                        $('#fiche').html(data);
+                        window.history.pushState('', '', path);
+                    }
+                });
+            }
+            return false;
+        });
+        $("body").on('submit', '.form_edit_fiche', function (e) {
+            var id = $(this).attr('id');
+            var path = "{{ path('product_show_back') }}/" + id;
+            $.ajax({
+                url: "{{ path('product_update_back') }}/" + id,
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                    success: function (data) {
+                        $('#fiche').html(data);
+                        window.history.pushState('', '', path);
+                    }
+            });
+            e.preventDefault();
+        });
+    </script>
+{% endblock %}

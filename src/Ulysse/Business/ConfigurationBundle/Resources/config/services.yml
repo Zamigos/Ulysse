@@ -1,0 +1,36 @@
+services:
+    configuration_form:
+        factory_service: form.factory
+        factory_method: createNamed
+        class: Symfony\Component\Form\Form
+        arguments:
+            - configuration
+            - configuration_form
+
+    configuration_type:
+        class: Ulysse\Business\ConfigurationBundle\Form\Type\ConfigurationType
+        tags:
+            - { name: form.type, alias: configuration_form }
+
+    configuration_handler:
+        class: Ulysse\Business\ConfigurationBundle\Form\Handler\ConfigurationHandler
+        arguments: [@configuration_form, @request, @doctrine.orm.entity_manager]
+        scope: request
+
+    slider_form:
+        factory_service: form.factory
+        factory_method: createNamed
+        class: Symfony\Component\Form\Form
+        arguments:
+            - slider
+            - slider_form
+
+    slider_type:
+        class: Ulysse\Business\ConfigurationBundle\Form\Type\SliderType
+        tags:
+            - { name: form.type, alias: slider_form }
+
+    slider_handler:
+        class: Ulysse\Business\ConfigurationBundle\Form\Handler\SliderHandler
+        arguments: [@slider_form, @request, @doctrine.orm.entity_manager]
+        scope: request

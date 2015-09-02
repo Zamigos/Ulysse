@@ -1,0 +1,16 @@
+{% extends ":back:base.html.twig" %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    {{ form(form) }}
+                </div>
+                <a href="{{ path('shape') }}" class="btn btn-primary">
+                    Retourner à la liste
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock body %}

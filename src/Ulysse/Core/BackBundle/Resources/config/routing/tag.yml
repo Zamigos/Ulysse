@@ -1,0 +1,19 @@
+tag:
+    path:     /
+    defaults: { _controller: "UlysseBusinessProductBundle:Tag:index" }
+
+tag_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessProductBundle:Tag:show" }
+
+tag_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessProductBundle:Tag:create" }
+
+tag_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessProductBundle:Tag:update" }
+
+tag_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessProductBundle:Tag:delete" }

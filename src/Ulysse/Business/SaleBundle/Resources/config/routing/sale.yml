@@ -1,0 +1,54 @@
+sale_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:show" }
+
+sale_new:
+    path:     /new
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:new" }
+    methods:  POST
+
+sale_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:create" }
+    methods:  POST
+
+sale_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:edit" }
+
+sale_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:update" }
+    methods:  [POST, PUT]
+
+sale_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:delete" }
+    methods:  [POST, DELETE]
+
+sale_show_my_article:
+    path:     /my/article
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:showMyArticle" }
+
+sale_new_product:
+    path:     /news
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:showNewProduct" }
+
+sale_add_product:
+    path:   /add
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:choiceCategoryForAddProduct" }
+
+sale_add_choice_product:
+    path:   /choiceCat
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:choiceProductForAddProduct" }
+    methods:  POST
+
+
+sale_create_imbrique:
+    path:   /addImbrique
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:createImbrique" }
+    methods: POST
+
+sale:
+    path:     /{page}
+    defaults: { _controller: "UlysseBusinessSaleBundle:Sale:index", page: 1 }

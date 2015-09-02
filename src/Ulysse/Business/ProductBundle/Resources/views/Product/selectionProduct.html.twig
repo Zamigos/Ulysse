@@ -1,0 +1,3 @@
+{% for product in selectionProducts %}
+    <li><a href="{{ path('product_show', { 'id': product.product.id }) }}">{{ product.product.name }}</a></li>
+{% endfor %}

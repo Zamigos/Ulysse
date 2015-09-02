@@ -1,0 +1,16 @@
+<div class="row">
+{% for rubrique in rubriques %}
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box {{ rubrique.class }}">
+            <div class="inner">
+                <div class="pull-right box-tools">
+                  </div>
+                <h4>{{ rubrique.name }}</h4>
+            </div>
+            <div class="icon">
+            </div>
+            <a href="{{ path(rubrique.path) }}" class="small-box-footer">Accéder à la rubrique <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+{% endfor %}
+</div>

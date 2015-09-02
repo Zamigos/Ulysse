@@ -1,0 +1,19 @@
+{% extends ":back:base.html.twig" %}
+
+{% block title %}Configuration{% endblock %}
+
+{% block body -%}
+    <section class="content-header">
+        <h1>
+            Configuration
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Configuration</li>
+        </ol>
+    </section>
+    <section class="content" id="fiche">
+        {% block content %}
+        {% endblock content %}
+    </section>
+{% endblock %}

@@ -1,0 +1,16 @@
+<div class="box box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Mes dossiers</h3>
+        <div class="box-tools">
+            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="box-body no-padding">
+        <ul class="nav nav-pills nav-stacked">
+            <li id="allMessages"><a href="" ><i class="fa fa-inbox"></i> Ticket ouvert <span class="label label-primary pull-right">{{countOpen}}</span></a></li>
+            <li id="notSeenMessages"><a href="" ><i class="fa fa-inbox"></i> Tickets non vus <span class="label label-waring pull-right">{{countNotSeen}}</span></a></li>
+            <li id="unanswerableMessages"><a href="" id=""><i class="fa fa-inbox"></i> Ticket non traités <span class="label label-success pull-right">{{countUnanswerable}}</span></a></li>
+            <li id="fencedTickets"><a href="" ><i class="fa fa-inbox"></i> Ticket clôturés <span class="label label-primary pull-right">{{countFenced}}</span></a></li>
+        </ul>
+    </div>
+</div>

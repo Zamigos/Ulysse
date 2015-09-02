@@ -1,0 +1,32 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body %}
+<div class="row rate_user">
+    <div class="page-header">
+        <h1>{{ user.username }}</h1>
+    </div>
+    <div class="col-md-12">
+        <h3>Ses notes</h3>
+        {% if ratings is not empty %}
+            <div class="row">
+                {% for rating in ratings %}
+                    <div class="col-md-4">
+                    <div class="panel panel-default rating">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ rating.title }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="content">{{ rating.content }}</p>
+
+                                <p class="note">{{ rating.rate }}/5</p>
+                            </ul>
+                        </div>
+                        <div class="panel-footer">Donné par <a href="{{ path('ulysse_user_show', { 'id' : rating.salepurchase.purchase.user.id }) }}">@{{ rating.salepurchase.purchase.user.username }}</a><br> pour le produit {{ rating.salepurchase.sale.product.name }}</div>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

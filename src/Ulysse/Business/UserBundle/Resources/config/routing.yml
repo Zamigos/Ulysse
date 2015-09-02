@@ -1,0 +1,3 @@
+ulysse_user_show:
+    path: /user/{id}
+    defaults: { _controller: "UlysseBusinessUserBundle:UserFront:index" }

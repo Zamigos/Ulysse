@@ -1,0 +1,39 @@
+{% extends ":back:base.html.twig" %}
+
+{% block body -%}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Wording</th>
+                                <th>Active</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                    <td>{{ entity.wording }}</td>
+                                    <td>{{ entity.active }}</td>
+                                    <td>{{ entity.slug }}</td>
+                                    <td>
+                                        <a href="{{ path('category_show', { 'id': entity.id }) }}" class="btn btn-primary">show</a>
+                                        <a href="{{ path('category_update', { 'id': entity.id }) }}" class="btn btn-primary">update</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ path('category_create') }}" class="btn btn-primary">Créer</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock body %}

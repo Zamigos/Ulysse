@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 fos-user">
+        <div class="page-header">
+            <h1>Mon Profil</h1>
+        </div>
+        <p><em>Pseudo:</em><br> {{ user.username }}</p>
+        <p><em>Email:</em><br>  {{ user.email }}</p>
+        <p><em>Prénom:</em><br>  {{ user.firstname }}</p>
+        <p><em>Nom:</em><br>  {{ user.lastname }}</p>
+        <p><em>Adresse:</em><br>  {{ user.address }}</p>
+        <p><em>Code Postal:</em><br>  {{ user.cp }}</p>
+        <p><em>Ville:</em><br>  {{ user.city }}</p>
+        <p><em>Pays:</em><br>  {{ user.country }}</p>
+        <p><em>Téléphone:</em><br>  {{ user.phone }}</p>
+        <p><em>Biographie:</em><br>  {{ user.bio }}</p>
+
+        <div class="text-center">
+        <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-success">Modifier mon profil</a>
+        </div>
+        </div>
+</div>

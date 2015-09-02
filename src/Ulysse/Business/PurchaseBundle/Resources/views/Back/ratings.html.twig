@@ -1,0 +1,32 @@
+{% for entity in entities %}
+    <div class="box box-body">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                <a href="{{path('user_show_back', { id : entity.user.id })}}">
+                    {% set completName = entity.salepurchase.purchase.user.completName %}
+                        {% if completName != ' ' %}
+                            {{entity.salepurchase.purchase.user.completName}}
+                        {% else %}
+                            {{entity.salepurchase.purchase.user.username}}
+                        {% endif %}
+                </a>
+                : {{ entity.title }}</h3>
+            <span class="pull-right">{{ entity.date | date('d/m/Y H:i') }}</span>
+        </div>
+        <div class="box-body">
+            <blockquote>
+                <small>
+                    {% for i in 1..entity.rate %}
+                        <i class="fa text-yellow fa-star"></i>
+                    {% endfor %}
+                </small>
+                <p>{{ entity.content|raw }}</p>
+            </blockquote>
+        </div>
+        {% if entity.moderate %}
+            Ce commentaire a été modéré.
+        {% else %}
+            <button class="btn btn-primary" id="moderate" rating="{{ entity.id }}" type="button">Modérer</button>
+        {% endif %}
+    </div>
+{% endfor %}

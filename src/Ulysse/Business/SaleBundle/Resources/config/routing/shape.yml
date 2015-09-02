@@ -1,0 +1,19 @@
+shape:
+    path:     /
+    defaults: { _controller: "UlysseBusinessSaleBundle:Shape:index" }
+
+shape_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessSaleBundle:Shape:show" }
+
+shape_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessSaleBundle:Shape:create" }
+
+shape_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessSaleBundle:Shape:update" }
+
+shape_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessSaleBundle:Shape:delete" }

@@ -1,0 +1,5 @@
+{% for product in topProducts %}
+    {% if product is not empty %}
+        <li><a href="{{ path('product_show', { 'id': product.product.id }) }}">{{ product.product.name }}</a></li>
+    {% endif %}
+{% endfor %}

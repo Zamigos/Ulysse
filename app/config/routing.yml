@@ -1,0 +1,65 @@
+ulysse_business_configuration:
+    resource: "@UlysseBusinessConfigurationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#Routing FOSUserBundle ----
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+#Routing of our Bundle ----
+ulysse_business_cart:
+    resource: "@UlysseBusinessCartBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_business_purchase:
+    resource: "@UlysseBusinessPurchaseBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_business_support:
+    resource: "@UlysseBusinessSupportBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_core_front:
+    resource: "@UlysseCoreFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_core_back:
+    resource: "@UlysseCoreBackBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+ulysse_business_sale:
+    resource: "@UlysseBusinessSaleBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_business_user:
+    resource: "@UlysseBusinessUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_business_product:
+    resource: "@UlysseBusinessProductBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ulysse_deployment_deployment:
+    resource: "@UlysseDeploymentDeploymentBundle/Resources/config/routing.yml"
+    prefix:   /deployment
+
+#Pour bundle qui gère le redimenssionement des images
+_imagine:
+    resource: .
+    type:     imagine

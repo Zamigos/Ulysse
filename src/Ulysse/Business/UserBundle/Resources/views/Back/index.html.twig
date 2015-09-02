@@ -1,0 +1,161 @@
+{% extends ':back:base.html.twig' %}
+
+{% block title %}Membres{% endblock %}
+
+{% block body -%}
+    <section class="content-header">
+        <h1>
+            Gestion des membres
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Utilisateurs</li>
+        </ol>
+    </section>
+    <section class="content" id="user">
+            {% block content %}
+                {% include 'UlysseBusinessUserBundle:Back:list.html.twig' %}
+            {% endblock content %}
+    </section>
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        $("body").on('click', '.user_show', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('user_show_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.user_banish', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('user_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('user_bannish_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.user_activate', function () {
+            var path = "{{ path('user_list_back') }}";
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('user_activate_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.user_block', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('user_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: "{{ path('user_block_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.user_unblock', function () {
+            var path = "{{ path('user_list_back') }}";
+            var id = $(this).attr('id')
+            $.ajax({
+                type: "POST",
+                url: "{{ path('user_unblock_back') }}/" + id,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#all', function () {
+            var path = "{{ path('user_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#banned', function () {
+            var path = "{{ path('user_list_back', {'mode': 'banned'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#blocked', function () {
+            var path = "{{ path('user_list_back', {'mode': 'blocked'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#user').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.paginate_button', function () {
+            var className = $(this).attr('class');
+            if(className.search('disabled') == -1){
+                var mode = $(this).attr('mode');
+                var page = $(this).attr('page');
+                var path = "{{ path('product_list_back') }}/"+mode+"/"+page;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: '',
+                    cache: false,
+                    success: function (data) {
+                        $('#user').html(data);
+                        window.history.pushState('', '', path);
+                    }
+                });
+            }
+            return false;
+        });
+    </script>
+{% endblock %}

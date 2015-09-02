@@ -1,0 +1,37 @@
+{% extends ":back:base.html.twig" %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Wording</th>
+                                <th>Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td><a href="{{ path('shape_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                    <td>{{ entity.wording }}</td>
+                                    <td>{{ entity.active }}</td>
+                                    <td>
+                                        <a href="{{ path('shape_show', { 'id': entity.id }) }}" class="btn btn-primary">Détails</a>
+                                        <a href="{{ path('shape_update', { 'id': entity.id }) }}" class="btn btn-primary">Editer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ path('shape_create') }}" class="btn btn-primary">Créer</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock body %}

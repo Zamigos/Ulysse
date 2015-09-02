@@ -1,0 +1,35 @@
+product_show_back:
+    path:     /show/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:show, id: null }
+
+product_list_back:
+    path:     /list/{mode}/{page}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:list, mode: untreated , page: 1 }
+
+product_validate_back:
+    path:     /validate/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:validate, id: null }
+
+product_refuse_back:
+    path:     /refuse/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:refuse, id: null }
+
+product_selected_back:
+    path:     /selected/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:selected, id: null }
+
+product_unselected_back:
+    path:     /unselected/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:unselected, id: null }
+
+product_edit_back:
+    path:     /edit/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:edit, id: null }
+
+product_update_back:
+    path:     /update/{id}
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:update, id: null }
+
+product_back:
+    path:     /
+    defaults: { _controller: UlysseBusinessProductBundle:ProductBack:index}

@@ -1,0 +1,87 @@
+{% extends ":back:base.html.twig" %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body -%}
+    <section class="content-header">
+        <h1>
+            Gestion des fiches produit
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Administration</a></li>
+            <li class="active">Commandes</li>
+        </ol>
+    </section>
+    <section class="content" id="fiche">
+        {% block content %}
+            {% include 'UlysseBusinessPurchaseBundle:Back:list.html.twig' %}
+        {% endblock content %}
+    </section>
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        $("body").on('click', '.fiche_show', function () {
+            var id = $(this).attr('id')
+            var path = "{{ path('purchase_show_back') }}/" + id;
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#back_list', function () {
+            var path = "{{ path('purchase_list_back') }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '#all', function () {
+            var path = "{{ path('purchase_list_back', {'mode': 'all'}) }}";
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: '',
+                cache: false,
+                success: function (data) {
+                    $('#fiche').html(data);
+                    window.history.pushState('', '', path);
+                }
+            });
+            return false;
+        });
+        $("body").on('click', '.paginate_button', function () {
+            var className = $(this).attr('class');
+            if (className.search('disabled') === -1) {
+                var mode = $(this).attr('mode');
+                var page = $(this).attr('page');
+                var path = "{{ path('purchase_list_back') }}/" + mode + "/" + page;
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: '',
+                    cache: false,
+                    success: function (data) {
+                        $('#fiche').html(data);
+                        window.history.pushState('', '', path);
+                    }
+                });
+            }
+            return false;
+        });
+    </script>
+{% endblock %}

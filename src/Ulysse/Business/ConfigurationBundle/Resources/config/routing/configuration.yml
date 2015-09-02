@@ -1,0 +1,3 @@
+configuration:
+    path:     /
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Configuration:edit" }

@@ -1,0 +1,55 @@
+{% extends ':front:base.html.twig' %}
+
+{% block body -%}
+    <div class="row product_container">
+        {{ render(controller('UlysseCoreFrontBundle:Main:sideBarMenu', { 'route' : app.request.attributes.get('_route') } )) }}
+        <div class="col-md-10">
+
+            <div class="row">
+                <div class="col-md-12">
+                    {% include '@UlysseBusinessProduct/Product/template.html.twig' %}
+                </div>
+            </div>
+            {% if nbPages > 1 %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <ul class="pagination">
+                                <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}">
+                                    <a href="{{ path('top_product_sale', {'page': 1}) }}"><<</a>
+                                </li>
+                                <li class="paginate_button previous{% if page == 1 %} disabled{% endif %}">
+                                    <a href="{{ path('top_product_sale', {'page': page - 1}) }}"><</a>
+                                </li>
+                                {% if nbPages < 5 %}
+                                    {% set start = 1 %}
+                                    {% set end = nbPages %}
+                                {% elseif page < 3 %}
+                                    {% set start = 1 %}
+                                    {% set end = 5 %}
+                                {% elseif page > nbPages-3 %}
+                                    {% set start = nbPages-4 %}
+                                    {% set end = nbPages %}
+                                {% else %}
+                                    {% set start = page-2 %}
+                                    {% set end = page+2 %}
+                                {% endif %}
+                                {% for p in range(start, end) %}
+                                    <li class="paginate_button{% if p == page %} active{% endif %}">
+                                        <a href="{{ path('top_product_sale', {'page': p}) }}">{{ p }}</a>
+                                    </li>
+                                {% endfor %}
+                                <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}">
+                                    <a href="{{ path('top_product_sale', {'page': page + 1}) }}">></a>
+                                </li>
+                                <li class="paginate_button next {% if page == nbPages %} disabled{% endif %}">
+                                    <a href="{{ path('top_product_sale', {'page': nbPages}) }}">>></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

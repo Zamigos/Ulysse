@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="page-header">
+            <h1>Modifier mon profil</h1>
+        </div>
+        <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST"
+              class="fos_user_profile_edit">
+            {{ form_widget(form) }}
+            <div>
+                <input type="submit" class="btn btn-success" value="Mettre à jour"/>
+            </div>
+        </form>
+    </div>
+</div>

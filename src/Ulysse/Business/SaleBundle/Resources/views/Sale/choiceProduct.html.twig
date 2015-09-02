@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="choiceProduct">Sélectionnez un produit type</label>
+    <select name="product" class="form-control" id="choiceProduct">
+            <option>Sélectionne un produit type</option>
+        {% for product in products %}
+            <option value="{{ product.id }}">{{ product.name }}</option>
+        {% endfor %}
+        <option value="addProductType">Mon choix n'est pas dans la liste...</option>
+    </select>
+</div>

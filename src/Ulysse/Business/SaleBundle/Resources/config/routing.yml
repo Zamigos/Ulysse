@@ -1,0 +1,3 @@
+ulysse_business_sale_sale:
+    resource: "@UlysseBusinessSaleBundle/Resources/config/routing/sale.yml"
+    prefix:   /sale

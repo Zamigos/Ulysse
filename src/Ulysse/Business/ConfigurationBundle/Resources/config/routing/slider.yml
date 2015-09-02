@@ -1,0 +1,19 @@
+slider:
+    path:     /
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Slider:index" }
+
+slider_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Slider:show" }
+
+slider_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Slider:create" }
+
+slider_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Slider:update" }
+
+slider_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessConfigurationBundle:Slider:delete" }

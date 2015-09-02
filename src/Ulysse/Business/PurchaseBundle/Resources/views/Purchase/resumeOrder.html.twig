@@ -1,0 +1,61 @@
+{% extends ':front:base.html.twig' %}
+
+
+{% block body %}
+    <div class="row resume_command">
+        <div class="page-header">
+            <h1>Résumé de ma commande <small>#{{ order.id }}</small></h1>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+
+                <div class="row">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Status</th>
+                                <th>Article</th>
+                                <th>Propriétaire</th>
+                                <th>Quantité</th>
+                                <th>Prix</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for salepurchase in order.salepurchase %}
+
+                                <tr>
+                                    <td scope="row">{{ loop.index }}</td>
+                                    <td>
+                                        <span class="label label-success">{{ salepurchase.status.wording }}</span>
+                                    </td>
+                                    <td><a href="{{ path('sale_show', { 'id': salepurchase.sale.id }) }}">{{ salepurchase.sale.product.name }}</a></td>
+                                    <td><a href="{{ path('ulysse_user_show', { 'id' : salepurchase.sale.user.id }) }}">{{ salepurchase.sale.user.username }}</a></td>
+                                    <td>{{ salepurchase.quantity }}</td>
+                                    <td>{{ salepurchase.amount }}€</td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+                <div class="row">
+                    <p class="price"><small>Total:</small><br>{{ order.amounttotal }}€</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                            <h6>Adresse de livraison donnée pour cette commande :</h6>
+                            <ul>
+                                <li>{{ order.firstname }}, {{ order.lastname }}</li>
+                                <li>{{ order.address }}</li>
+                                <li>{{ order.cp }} {{ order.city }}</li>
+                                <li>{{ order.country }}</li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

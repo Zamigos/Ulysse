@@ -1,0 +1,30 @@
+response:
+    path:     /
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:index" }
+
+response_show:
+    path:     /{id}/show
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:show" }
+
+response_new:
+    path:     /new
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:new" }
+
+response_create:
+    path:     /create
+    defaults: { _controller: "UlysseBusinessSupportBundle:SupportFront:createResponse" }
+    methods:  POST
+
+response_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:edit" }
+
+response_update:
+    path:     /{id}/update
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:update" }
+    methods:  [POST, PUT]
+
+response_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UlysseBusinessSupportBundle:Response:delete" }
+    methods:  [POST, DELETE]

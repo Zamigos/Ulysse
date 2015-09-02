@@ -1,0 +1,5 @@
+{% if configuration.logo.id is defined %}
+    <img src="{{ configuration.logo.webPath | apply_filter('thumb_logo') }}" alt="{{ configuration.logo.alt }}" height="10px"/>
+{% else %}
+    <img src="{{ asset('img/logo.jpg') }}" alt="Logo">
+{% endif %}
