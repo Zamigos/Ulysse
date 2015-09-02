@@ -1,22 +1,16 @@
-ULYSSE
+Ulysse
 ==========
 
 Ulysse est un CMS de ventes de Produits.
 
 ###Version
-0.0.1 (En cours de développement)
+0.0.1 
 
 
-Développement restant avant de mettre en ligne sur GitHub
+Fix à réaliser
 ---------
 
-- Nettoyer tous les bundles créés et essayer de mettre des commentaires.
-
-
-###Bundles Nettoyés et Commentés
-
-- Cart
-
+- Bundle de déploiement pas encore fonctionnel (problème de permission avec le fichier parameters.yml)
 
 
 Installation 
@@ -32,7 +26,7 @@ Configuration/Déploiement
 ---------
  
 - Allez sur l'url /web/app_dev.php/deployment 
-- et laissez vous guider !
+- Laissez vous guider !
 
 
 Contributeurs
